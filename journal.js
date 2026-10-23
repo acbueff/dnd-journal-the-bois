@@ -331,16 +331,18 @@ window.JOURNAL = {
           title: "Assault on the Top Floor",
           date: "After Highsun 10",
           place: "zarzula",
-          img: "assets/scenes/assault-zarzulas-rest-v1.jpg",
-          alt: "Flanked by giant eagles at the cliff edge, the bois and Vel cut through crystal-bound thralls and duergar on a blood-soaked fortress terrace.",
-          text: "Zarzula's Rest is a fortress stacked a hundred feet above the water, and <strong>no outsider may enter without Ruxithid's leave</strong>. The bois didn't ask. Toc's <strong>giant eagles</strong> carried them to the top floor, with Vel carrying Thrak. The thralls there were human, dwarf and half-elf labourers with <strong>green crystals in their skulls</strong>, and they never stood a chance. The duergar overseers fought harder, and fell anyway."
+          img: "assets/scenes/assault-zarzulas-rest-v2.jpg",
+          alt: "Seen from behind, the bois and Vel stride across a cliff-top terrace toward a fortress gate blazing with forge-light, their magic flaring and their giant shadows looming up the walls, as eagles wheel away below.",
+          text: "Zarzula's Rest is a fortress stacked a hundred feet above the water, and <strong>no outsider may enter without Ruxithid's leave</strong>. The bois didn't ask. Toc's <strong>giant eagles</strong> carried them to the top floor, with Vel carrying Thrak, and they walked straight toward the <strong>forge-light blazing through the gate</strong>. The thralls there were human, dwarf and half-elf labourers with <strong>green crystals in their skulls</strong>, and they never stood a chance. The duergar overseers fought harder, and fell anyway."
         },
         {
-          type: "note",
+          type: "scene",
           title: "Downward",
           date: "After Highsun 10",
           place: "zarzula",
-          text: "Floor by floor, the bois worked their way down. The deeper they went, the more of the thralls were <strong>duergar</strong>, and the closer they came to the volcanic heart of the fortress, and to <strong>Ruxithid</strong>."
+          img: "assets/scenes/assault-zarzulas-rest-v1.jpg",
+          alt: "The bois and Vel cut through crystal-bound labourers and duergar overseers amid molten-lit walls and dropped tools.",
+          text: "Floor by floor, the bois worked their way down, cutting through every thrall who stood in their way. The deeper they went, the more of the thralls were <strong>duergar</strong>, and the closer they came to the volcanic heart of the fortress, and to <strong>Ruxithid</strong>."
         },
         {
           type: "note",
