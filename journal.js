@@ -415,7 +415,7 @@ window.JOURNAL = {
         "<strong>The Blood-Eye Ruby</strong>, partly consumed.",
         "<strong>Mr. Bree's soul</strong>, inside a ring of mind shielding.",
         "<strong>Delaro's planar rune book</strong> and <strong>planar rods</strong>.",
-        "<strong>The Cultain ship's cargo.</strong>",
+        "<s class=\"struck\"><strong>The Cultain ship's cargo.</strong></s> <span class=\"correction\">Left the cargo at Glogdolp</span>",
         "<strong>The Grinning Widow letters</strong> and <strong>Zadana's orders</strong>."
       ]
     },

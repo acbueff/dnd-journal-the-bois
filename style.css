@@ -407,3 +407,8 @@
   .site-nav a { padding: 5px 11px; font-size: .82rem; }
   .roster-grid { grid-template-columns: 1fr; }
 }
+
+/* Ink corrections in the ledger: struck-through entries with a red note */
+.parchment s.struck { text-decoration: line-through; text-decoration-color: #b3160c; text-decoration-thickness: 2px; color: rgba(42, 26, 11, .55); }
+.parchment s.struck strong { color: rgba(61, 14, 8, .55); }
+.parchment .correction { color: #b3160c; font-style: italic; white-space: nowrap; }
