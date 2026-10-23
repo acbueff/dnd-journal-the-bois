@@ -9,8 +9,10 @@ The Backstreet Bois' journal of the Black Loch: a scrolling, player-facing recor
 All journal content lives in **`journal.js`**; the character profiles on the Company page live in **`company.js`** (portraits in `assets/people/`). Edit them, then publish:
 
 ```bash
-git add -A && git commit -m "Journal: <what changed>" && git push
+./publish.sh "What changed"
 ```
+
+The script also bumps a version stamp on the CSS and JS files, so players' browsers fetch the new content instead of a cached copy.
 
 GitHub Pages updates the live site within a minute or two.
 
