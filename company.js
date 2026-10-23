@@ -103,6 +103,19 @@ window.COMPANY = {
       status: "With the company, for now"
     },
     {
+      id: "forge",
+      name: "Forge",
+      epithet: "Son of Seb's patron, and his broker",
+      tags: ["Earth Genasi", "Scimitar", "Court of a genie lord"],
+      bio: "A tall, bald, sharp-tongued genasi with stone-grey skin, gold veins across his scalp and a rust-red beard. Forge is the <strong>son of the genie lord who holds Seb's pact</strong>, and Seb's closest contact in his father's court. He scries on Seb, brokers deals in his father's name, and watches over his father's interests first.",
+      facts: [
+        "Joined the bois at <strong>Helm's Hold</strong>, where the Shadow Thieves came for him.",
+        "Has a grudge against the bois, but not against Seb.",
+        "His last Sending: <em>\"If my dad finds out, I'm dead and your pact will be broken. Get it back.\"</em>"
+      ],
+      status: "Last heard: by Sending, scrying on Vel"
+    },
+    {
       id: "falcon",
       name: "The Falcon",
       epithet: "Gustaf Halfdane, hunter of Neverwinter Wood",
