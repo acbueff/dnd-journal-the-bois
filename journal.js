@@ -427,6 +427,7 @@ window.JOURNAL = {
         "<em>\"Even gods may wear masks.\"</em> Whose mask?",
         "What is the Blood-Eye Ruby doing to us?",
         "Will the crystal in Stor ever let him go?",
+        "Immeral's gods: free Shaundakul from the God Tree, or keep feeding Priapus?",
         "What crawled out of the Shadowfell beneath the Loch?",
         "Why do the Bridge Builders serve a mind flayer?"
       ]

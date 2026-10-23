@@ -50,15 +50,16 @@ window.COMPANY = {
     {
       id: "immeral",
       name: "Immeral",
-      epithet: "Cleric of the Windlord",
-      tags: ["Moon Elf", "Cleric", "Shaundakul"],
-      bio: "A blue-skinned moon elf cleric of <strong>Shaundakul</strong>, god of travel and the wind. Behind his round spectacles is a quiet authority, and a stubborn refusal to stay down, as a crystal guardian learned the hard way. He wears <strong>duergar half-plate</strong> that does not fit him, and his spirit guardians whirl around him as a storm of <strong>golden shurikens</strong>.",
+      epithet: "Cleric of the Windlord, in name",
+      tags: ["Moon Elf", "Cleric", "Shaundakul", "Priapus"],
+      bio: "A blue-skinned moon elf who preaches <strong>Shaundakul</strong>, god of travel and the wind. But the Windlord is <strong>imprisoned in the God Tree</strong> by the arch-fey <strong>Priapus</strong>. Every prayer to Shaundakul flows through the tree into Priapus's <strong>Domain of Delight</strong>, and that is where Immeral's power truly comes from. Shaundakul, even in chains, has <strong>cursed Priapus</strong>, and Priapus needs ever more worship to break it. Immeral wears <strong>duergar half-plate</strong> that does not fit him, and his spirit guardians whirl around him as a storm of <strong>golden shurikens</strong>.",
       facts: [
+        "<strong>His choice:</strong> free Shaundakul from the God Tree, or keep spreading the faith so Priapus can break the curse.",
+        "Savras showed him as High Cleric in Silverymoon, then bound in silver thorns in a fey grove, devoured by a growing tree.",
         "His magical mace doubles as the company's lantern in the deep.",
-        "Gloppid, innkeeper of the Gutted Fish, is very fond of him.",
-        "Savras showed him as High Cleric in Silverymoon, then bound in silver thorns in a fey grove."
+        "Gloppid, innkeeper of the Gutted Fish, is very fond of him."
       ],
-      status: "With the company"
+      status: "With the company, serving two gods"
     },
     {
       id: "toc",
