@@ -71,7 +71,7 @@ window.COMPANY = {
         "Called the <strong>giant eagles</strong> that carried the bois up to Zarzula's Rest.",
         "Savras named him and Tim <strong>\"two sons of prophecy\"</strong>.",
         "Delaro's papers fear a <em>\"one-eyed Calimshite, the Shield Anvil of Savras\"</em>.",
-        "The Grinning Widow letters say his old division, the <strong>Bridge Builders</strong>, is joining Suvresk."
+        "The Grinning Widow letters say the <strong>Bridge Builders</strong>, a division of his old army under the war-wizard Azer, are joining Suvresk."
       ],
       status: "With the company"
     },

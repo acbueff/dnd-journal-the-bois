@@ -456,17 +456,17 @@ window.JOURNAL = {
       {
         id: "bridge",
         name: "The Bridge Builders",
-        role: "Toc's old division of Calimshan's 2nd Army",
-        source: "Ruxithid's letter to Thrunbar",
-        text: "Suvresk spoke of <em>\"visiting mercenaries who will soon become Realm Touched… a military division of Calimshan known as the Bridge Builders.\"</em> The men who carried Ruxithid's letter were already Realm Touched. Toc's old comrades, or what is left of them, have <strong>thrown in with a mind flayer</strong>.",
+        role: "A division of Calimshan's 2nd Army, the army Toc scouted for",
+        source: "Ruxithid's letter to Thrunbar · Toc",
+        text: "A military division in <strong>Calimshan's 2nd Army</strong> (Onearm's Host), the army in which Toc served as a ranger and scout-major. It is commanded by the war-wizard <strong>Azer</strong>. Ruxithid wrote of <em>\"visiting mercenaries who will soon become Realm Touched… a military division of Calimshan known as the Bridge Builders.\"</em> The men who carried his letter were already Realm Touched. Part of Toc's old army has <strong>thrown in with a mind flayer</strong>.",
         ties: ["suvresk", "knife"]
       },
       {
         id: "knife",
         name: "The Amethyst Knife",
-        role: "Psionic soldiers, once \"the Ninth Squad\"",
+        role: "Psionic soldiers, once \"the 9th Squad\" of the Bridge Builders",
         source: "Vel",
-        text: "A company once called the <strong>Ninth Squad</strong>, remade at Zarzula's Rest. <strong>Suvresk personally granted them entry</strong> and filled them with psionic power, and they took a new name. They answer to a <strong>wizard of Calimshan</strong> tied to the Bridge Builders, who has promised them <strong>a kingdom of their own</strong>. Vel was sent to find out how they fit into Suvresk's web.",
+        text: "Once the <strong>9th Squad</strong> of the <strong>Bridge Builders</strong> division. At Zarzula's Rest, <strong>Suvresk personally granted them entry</strong> and filled them with psionic power, and they took a new name. They still answer to <strong>Azer</strong>, the Bridge Builders' war-wizard in Calimshan. Vel was sent to find out how they fit into Suvresk's web.",
         ties: ["suvresk", "bridge", "bregan"]
       },
       {
@@ -474,7 +474,7 @@ window.JOURNAL = {
         name: "Bregan D'aerthe",
         role: "Houseless drow mercenaries · Vel's company",
         source: "Vel",
-        text: "Their Black Loch operation runs from a hidden cavern beside <strong>Vlyn'darastyl</strong>, commanded by <strong>Bruhd Do'Urden</strong>, Vel's elder brother. They <strong>escorted Suvresk</strong> on his travels. Then House Baenre's spymasters grew uneasy and sent them to learn <strong>what Suvresk is really doing</strong>. Vel's crew was to capture a crystal-thralled duergar, have Charwall's clerics free its mind, and question it. The bois' arrival at Charwall wrecked that.",
+        text: "A drow mercenary company led by <strong>Jarlaxle Baenre</strong>. Its Black Loch operation runs from a hidden cavern beside <strong>Vlyn'darastyl</strong>, commanded by <strong>Bruhd Do'Urden</strong>, Vel's elder brother. They <strong>escorted Suvresk</strong> on his travels, and they grew <strong>suspicious of him</strong>. Vel's crew was sent to learn <strong>what Suvresk is really doing</strong>: capture a crystal-thralled duergar, have Charwall's clerics free its mind, and question it. The bois' arrival at Charwall wrecked that.<br><br>Now that Vel knows about the <strong>Black Shard</strong> and Suvresk's part in taking it, his suspicion has sharpened. <strong>Bruhd, and Jarlaxle himself</strong>, want him to <strong>go into Zarzula's Rest and uncover the plot</strong>.",
         ties: ["baenre", "suvresk"]
       },
       {
@@ -482,7 +482,7 @@ window.JOURNAL = {
         name: "House Baenre",
         role: "First House of Menzoberranzan",
         source: "Vel · Zadana's orders",
-        text: "Suvresk presents himself as <strong>loyal to House Baenre</strong>, and Baenre doesn't fully believe him, which is why Bregan D'aerthe was sent to look. Its reach on the Loch runs through Bregan D'aerthe and its ally <strong>House Mizzrym</strong>, whose watchers we met at <strong>Scarhide Yard</strong>, and whose hold is at Spyr-Anaisz.",
+        text: "House Cultain calls Suvresk <em>\"the mind flayer tied to House Baenre\"</em>, and he presents himself as <strong>loyal to the First House</strong>. Bregan D'aerthe's leader, <strong>Jarlaxle</strong>, was born a Baenre. The house's reach on the Loch also runs through its ally <strong>House Mizzrym</strong>, whose watchers we met at <strong>Scarhide Yard</strong>, and whose hold is at Spyr-Anaisz.",
         ties: ["bregan", "cultain", "suvresk"]
       },
       {
@@ -543,9 +543,9 @@ window.JOURNAL = {
       title: "Powers of the Black Loch",
       icon: "◈",
       items: [
-        "<strong>Suvresk</strong>: a mind flayer, \"the Infinite Mind\", master of Zarzula's Rest, tied to House Baenre.",
+        "<strong>Suvresk</strong>: a mind flayer, \"the Infinite Mind\", master of Zarzula's Rest, tied to House Baenre. Bregan D'aerthe doesn't trust him.",
         "<strong>Ruxithid the Chosen</strong>: his first thrall. He holds the rod.",
-        "<strong>The Bridge Builders</strong>: a Calishite division (Toc's old army) joining Suvresk as \"Realm Touched\".",
+        "<strong>The Bridge Builders</strong>: Azer's division of Calimshan's 2nd Army, Toc's old army, joining Suvresk as \"Realm Touched\". Their 9th Squad is now the <strong>Amethyst Knife</strong>.",
         "<strong>House Cultain</strong> (Matron Azani, Zadana) of Vlyn'darastyl, and <strong>House Mizzrym</strong>, watching from Scarhide.",
         "<strong>The Bluescale Empire</strong>, at war with itself: Ohlavoosha against Pishoorooohl. General Vlorluc of Eel Maw gives Suvresk's ships safe passage."
       ]
