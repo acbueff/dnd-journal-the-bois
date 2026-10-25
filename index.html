@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cinzel+Decorative:wght@700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=202610231356">
+<link rel="stylesheet" href="style.css?v=202610251441">
 </head>
 <body>
   <div class="backdrop" aria-hidden="true"></div>
@@ -37,18 +37,38 @@
   </header>
 
   <section class="chart-section" id="chart" aria-labelledby="chart-title">
-    <div class="chart-frame">
-      <div class="chart-sheet">
-        <h2 id="chart-title">The Cartographer's Chart</h2>
-        <p class="chart-note">A rough sketch of our wanderings, not to scale. The true map of the Black Loch is still being drawn. Touch a mark to find its entry.</p>
+    <div class="chart-head">
+      <div class="flourish">✦</div>
+      <h2 id="chart-title">The Chart of the Black Loch</h2>
+      <p>Our road in red, from Wave Echo Cave to the gates of Zarzula's Rest. Touch a numbered mark, or a line in the key, to read what happened there.</p>
+    </div>
+    <div class="chart-layout">
+      <div class="map-frame">
         <div id="big-chart"></div>
+        <button type="button" class="map-open" id="open-full-map">Open the full chart ⤢</button>
+      </div>
+      <div class="chart-key parch-wrap">
+        <div class="parchment">
+          <h3>The Road So Far</h3>
+          <ol class="legend" id="chart-legend"></ol>
+        </div>
       </div>
     </div>
+    <p class="chart-credit" id="chart-credit"></p>
   </section>
 
   <main class="timeline" id="timeline">
     <div class="spine" aria-hidden="true"></div>
   </main>
+
+  <section class="dossier" id="dossier" aria-labelledby="dossier-title">
+    <div class="ledger-head">
+      <div class="flourish">❦</div>
+      <h2 id="dossier-title">The Web Around Suvresk</h2>
+      <p id="dossier-sub"></p>
+    </div>
+    <div class="dossier-grid" id="dossier-grid"></div>
+  </section>
 
   <section class="ledger" id="ledger" aria-labelledby="ledger-title">
     <div class="ledger-head">
@@ -71,12 +91,17 @@
     </div>
   </aside>
 
+  <div class="full-map" id="full-map" hidden role="dialog" aria-modal="true" aria-label="The full chart of the Black Loch">
+    <button class="close" type="button" aria-label="Close the chart">×</button>
+    <div class="full-map-scroll"><div id="full-map-svg"></div></div>
+  </div>
+
   <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Painting">
     <button class="close" type="button" aria-label="Close">×</button>
     <figure style="margin:0"><img alt=""><p></p></figure>
   </div>
 
-  <script src="journal.js?v=202610231356"></script>
-  <script src="app.js?v=202610231356"></script>
+  <script src="journal.js?v=202610251441"></script>
+  <script src="app.js?v=202610251441"></script>
 </body>
 </html>

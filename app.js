@@ -42,18 +42,30 @@
   $("#hero-sub").textContent = J.subtitle;
   $("#hero-book").textContent = J.book;
 
-  /* ── flatten entries + route ── */
-  var entries = [], route = [], entryRoute = [];
+  /* ── flatten entries ── */
+  var entries = [];
   J.acts.forEach(function (act) {
-    act.entries.forEach(function (e) {
-      e._act = act;
-      entries.push(e);
-      if (e.place && J.places[e.place]) {
-        if (!route.length || route[route.length - 1].place !== e.place) route.push({ place: e.place, entry: entries.length - 1 });
-      }
-      entryRoute.push(route.length - 1);
-    });
+    act.entries.forEach(function (e) { e._act = act; entries.push(e); });
   });
+
+  /* ── route: the red line, leg by leg (see `route` in journal.js) ── */
+  var M = J.map, P = J.places, R = J.route || [];
+  var START = R.length ? firstPlace() : null;
+  function firstPlace() { for (var i = 0; i < entries.length; i++) if (entries[i].place) return entries[i].place; return null; }
+  var legOf = {};                       // place id -> index of the leg that arrives there
+  R.forEach(function (leg, i) { if (!(leg.to in legOf)) legOf[leg.to] = i; });
+  var stops = [START].concat(R.map(function (l) { return l.to; }));   // numbered stops, in order
+  var entryLeg = entries.map(function (e) { return e.place in legOf ? legOf[e.place] : -1; });
+  function pt(id) { return P[id]; }
+  function legPoints(i) {
+    var from = i === 0 ? pt(START) : pt(R[i - 1].to);
+    return [from].concat(R[i].via.map(function (v) { return { x: v[0], y: v[1] }; }), [pt(R[i].to)]);
+  }
+  function routeUpTo(n) {               // all points from the start through leg n
+    var pts = [pt(START)];
+    for (var i = 0; i <= n && i < R.length; i++) pts = pts.concat(legPoints(i).slice(1));
+    return pts;
+  }
 
   /* ── chart ── */
   function smoothPath(points) {
@@ -68,45 +80,26 @@
     }
     return d;
   }
-  function routePoints(upTo) {
-    return route.slice(0, upTo + 1).map(function (r) { return J.places[r.place]; });
-  }
-  var islandPlaces = ["charwall", "kaliphex-isle", "delaro", "shuushar-isle"];
-  function islandBlob(p, seed) {
-    var r = rng(seed), d = "", n = 9, i;
-    for (i = 0; i <= n; i++) {
-      var a = i / n * Math.PI * 2, rad = 20 + r() * 12;
-      var x = (p.x + Math.cos(a) * rad * 1.4).toFixed(1), y = (p.y + 6 + Math.sin(a) * rad * .8).toFixed(1);
-      d += (i ? " L" : "M") + x + " " + y;
-    }
-    return d + " Z";
-  }
-  function chartSVG(kind) {
-    var ns = "http://www.w3.org/2000/svg";
-    var parts = [];
-    parts.push('<svg class="chart-svg" viewBox="0 0 1000 700" role="img" aria-label="Rough chart of the bois\' route through the Black Loch">');
-    // the river from Wave Echo
-    parts.push('<path d="M110 70 C140 120,120 150,175 175 S210 230,250 270" fill="none" stroke="rgba(60,40,15,.5)" stroke-width="10" stroke-linecap="round" opacity=".35"/>');
-    // the loch
-    parts.push('<path class="loch" d="M250 270 C330 190,520 120,640 105 C770 92,915 190,945 330 C975 460,905 525,760 565 C640 600,520 645,380 655 C250 665,85 690,62 600 C45 520,140 470,200 420 C250 378,200 320,250 270 Z"/>');
-    parts.push('<text class="loch-label" x="430" y="400">THE BLACK LOCH</text>');
-    islandPlaces.forEach(function (id, i) {
-      if (J.places[id]) parts.push('<path d="' + islandBlob(J.places[id], 50 + i) + '" fill="rgba(70,48,18,.35)" stroke="rgba(60,40,15,.6)" stroke-width="1.5"/>');
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); }
+  function firstEntryAt(id) { for (var i = 0; i < entries.length; i++) if (entries[i].place === id) return i; return -1; }
+
+  /* One SVG builder for every view of the chart. kind: "big" | "mini" | "full" */
+  function mapSVG(kind) {
+    var w = M.width, h = M.height, parts = [];
+    parts.push('<svg class="map-svg map-' + kind + '" viewBox="0 0 ' + w + " " + h + '" role="img" aria-label="Chart of the Black Loch with the bois\' route">');
+    parts.push('<image href="' + M.image + '" x="0" y="0" width="' + w + '" height="' + h + '" preserveAspectRatio="none"/>');
+    (M.labels || []).forEach(function (l) {
+      parts.push('<text class="map-label ' + (l.cls || "") + '" x="' + l.x + '" y="' + l.y + '" font-size="' + (l.size || 12) + '">' + esc(l.text) + "</text>");
     });
-    // compass
-    parts.push('<g class="compass" transform="translate(905 620)"><circle r="34" fill="none" stroke="rgba(60,40,15,.5)"/><path d="M0 -44 L7 0 L0 44 L-7 0 Z" fill="rgba(60,40,15,.55)"/><path d="M-44 0 L0 -6 L44 0 L0 6 Z" fill="rgba(60,40,15,.3)"/><text y="-50" text-anchor="middle">N</text></g>');
-    // route
-    parts.push('<path class="route-ghost" d="' + smoothPath(routePoints(route.length - 1)) + '"/>');
-    parts.push('<path class="route" data-route d="' + smoothPath(routePoints(kind === "big" ? route.length - 1 : 0)) + '"/>');
-    // nodes (each place once, in first-visit order)
-    var seen = {};
-    route.forEach(function (r) {
-      if (seen[r.place]) return; seen[r.place] = 1;
-      var p = J.places[r.place], left = p.x > 700;
-      parts.push('<g class="node' + (kind === "big" ? " visited" : "") + '" data-place="' + r.place + '" tabindex="0" role="link" aria-label="' + p.name + '">' +
-        '<circle class="ring" cx="' + p.x + '" cy="' + p.y + '" r="9"/>' +
-        '<circle cx="' + p.x + '" cy="' + p.y + '" r="9"/>' +
-        '<text x="' + (p.x + (left ? -16 : 16)) + '" y="' + (p.y + 6) + '" text-anchor="' + (left ? "end" : "start") + '">' + p.name + "</text></g>");
+    if (kind !== "mini") parts.push('<path class="route-shadow" d="' + smoothPath(routeUpTo(R.length - 1)) + '"/>');
+    parts.push('<path class="route" data-route d="' + smoothPath(kind === "mini" ? [pt(START)] : routeUpTo(R.length - 1)) + '"/>');
+    stops.forEach(function (id, n) {
+      var p = pt(id); if (!p) return;
+      parts.push('<g class="stop' + (kind === "mini" ? "" : " visited") + '" data-place="' + id + '" tabindex="' + (kind === "mini" ? -1 : 0) + '" role="link" aria-label="' + (n + 1) + ". " + esc(p.name) + '">' +
+        "<title>" + (n + 1) + ". " + esc(p.name) + "</title>" +
+        '<circle class="ring" cx="' + p.x + '" cy="' + p.y + '" r="10"/>' +
+        '<circle class="dot" cx="' + p.x + '" cy="' + p.y + '" r="10"/>' +
+        '<text class="num" x="' + p.x + '" y="' + (p.y + 4) + '">' + (n + 1) + "</text></g>");
     });
     parts.push("</svg>");
     var wrap = document.createElement("div");
@@ -114,20 +107,41 @@
     return wrap.firstChild;
   }
   function goToPlace(id) {
-    for (var i = 0; i < entries.length; i++) if (entries[i].place === id) {
-      var target = document.getElementById("entry-" + i);
-      if (target) target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-      return;
-    }
+    var i = firstEntryAt(id), target = document.getElementById("entry-" + i);
+    closeFullMap();
+    if (target) target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
   }
-  function wireNodes(svg) {
-    svg.querySelectorAll(".node").forEach(function (n) {
+  function wireStops(svg) {
+    svg.querySelectorAll(".stop").forEach(function (n) {
       n.addEventListener("click", function () { goToPlace(n.getAttribute("data-place")); });
       n.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); goToPlace(n.getAttribute("data-place")); } });
     });
   }
-  var bigSvg = chartSVG("big"); $("#big-chart").appendChild(bigSvg); wireNodes(bigSvg);
-  var miniSvg = chartSVG("mini"); $("#mini-chart-svg").appendChild(miniSvg); wireNodes(miniSvg);
+
+  // the big chart + its numbered legend
+  var bigSvg = mapSVG("big"); $("#big-chart").appendChild(bigSvg); wireStops(bigSvg);
+  var legend = $("#chart-legend");
+  stops.forEach(function (id, n) {
+    var i = firstEntryAt(id), li = el("li", null,
+      '<button type="button"><span class="n">' + (n + 1) + '</span><span class="nm">' + esc(P[id].name) + "</span>" +
+      (i >= 0 && entries[i].title !== P[id].name ? '<span class="ev">' + entries[i].title + "</span>" : "") + "</button>");
+    li.querySelector("button").addEventListener("click", function () { goToPlace(id); });
+    legend.appendChild(li);
+  });
+  $("#chart-credit").textContent = M.credit || "";
+
+  // full-screen chart (pannable on small screens)
+  var fullMap = $("#full-map"), fullHost = $("#full-map-svg"), lastMapFocus = null;
+  var fullSvg = mapSVG("full"); fullHost.appendChild(fullSvg); wireStops(fullSvg);
+  function openFullMap() { lastMapFocus = document.activeElement; fullMap.hidden = false; document.body.style.overflow = "hidden"; $(".close", fullMap).focus(); }
+  function closeFullMap() { if (fullMap.hidden) return; fullMap.hidden = true; document.body.style.overflow = ""; if (lastMapFocus) lastMapFocus.focus(); }
+  $("#open-full-map").addEventListener("click", openFullMap);
+  $(".close", fullMap).addEventListener("click", closeFullMap);
+  fullMap.addEventListener("click", function (ev) { if (ev.target === fullMap) closeFullMap(); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") closeFullMap(); });
+
+  // the mini chart that follows the reader
+  var miniSvg = mapSVG("mini"); $("#mini-chart-svg").appendChild(miniSvg); wireStops(miniSvg);
 
   /* ── timeline ── */
   var tl = $("#timeline"), sideCount = 0, sceneCount = 0;
@@ -174,6 +188,37 @@
   var wet = el("p", "ink-wet reveal", "— the rest of this page is blank —");
   tl.appendChild(wet);
 
+  /* ── dossier: the web around Suvresk ── */
+  if (J.dossier) {
+    $("#dossier-title").textContent = J.dossier.title;
+    $("#dossier-sub").textContent = J.dossier.subtitle;
+    var dgrid = $("#dossier-grid"), names = {};
+    J.dossier.cards.forEach(function (c) { names[c.id] = c.name; });
+    J.dossier.cards.forEach(function (c, i) {
+      var card = el("article", "dossier-card parch-wrap reveal",
+        '<span class="pin" aria-hidden="true"></span><div class="parchment">' +
+        "<h3>" + c.name + "</h3>" +
+        '<p class="role">' + c.role + "</p>" +
+        "<p>" + c.text + "</p>" +
+        (c.ties && c.ties.length ? '<div class="ties"><span class="lbl">Tied to</span>' +
+          c.ties.map(function (t) { return '<a href="#dossier-' + t + '" data-tie="' + t + '">' + (names[t] || t) + "</a>"; }).join("") + "</div>" : "") +
+        (c.source ? '<p class="source">Learned from: ' + c.source + "</p>" : "") +
+        "</div>");
+      card.id = "dossier-" + c.id;
+      card.style.setProperty("--tilt", ((rng(i + 300)() - .5) * 1.8).toFixed(2) + "deg");
+      card.querySelector(".parchment").style.clipPath = tornEdge(700 + i * 11);
+      dgrid.appendChild(card);
+    });
+    dgrid.addEventListener("click", function (ev) {
+      var a = ev.target.closest("a[data-tie]"); if (!a) return;
+      ev.preventDefault();
+      var t = document.getElementById("dossier-" + a.getAttribute("data-tie"));
+      if (!t) return;
+      t.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      t.classList.remove("flash"); void t.offsetWidth; t.classList.add("flash");
+    });
+  }
+
   /* ── ledger ── */
   var grid = $("#ledger-grid");
   J.ledger.forEach(function (card, i) {
@@ -196,20 +241,41 @@
     reveals.forEach(function (r) { r.classList.add("visible"); });
   }
 
-  /* ── mini chart follows the reader ── */
+  /* ── mini chart follows the reader: draws the route so far and glides to the current stop ── */
   var mini = $("#mini-chart"), miniPlace = $("#mini-place"), miniRoute = miniSvg.querySelector("[data-route]");
+  var VIEW_W = 380, VIEW_H = 270, view = null, viewAnim = null;
+  function targetView(p) {
+    var x = Math.min(Math.max(p.x - VIEW_W / 2, 0), M.width - VIEW_W);
+    var y = Math.min(Math.max(p.y - VIEW_H / 2, 0), M.height - VIEW_H);
+    return [x, y, VIEW_W, VIEW_H];
+  }
+  function setView(v) { view = v; miniSvg.setAttribute("viewBox", v.map(function (n) { return n.toFixed(1); }).join(" ")); }
+  function glideTo(v) {
+    if (!view || reduceMotion) { setView(v); return; }
+    var from = view.slice(), t0 = null;
+    if (viewAnim) cancelAnimationFrame(viewAnim);
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / 700), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      setView(from.map(function (a, j) { return a + (v[j] - a) * e; }));
+      if (k < 1) viewAnim = requestAnimationFrame(step);
+    }
+    viewAnim = requestAnimationFrame(step);
+  }
   function setActive(i) {
-    var e = entries[i]; if (!e) return;
-    var ri = Math.max(0, entryRoute[i]);
-    miniRoute.setAttribute("d", smoothPath(routePoints(ri)));
-    var visited = {};
-    route.slice(0, ri + 1).forEach(function (r) { visited[r.place] = 1; });
-    miniSvg.querySelectorAll(".node").forEach(function (n) {
+    var e = entries[i]; if (!e || !e.place || !pt(e.place)) return;
+    var leg = entryLeg[i];
+    miniRoute.setAttribute("d", smoothPath(leg < 0 ? [pt(START)] : routeUpTo(leg)));
+    var reached = {}; reached[START] = 1;
+    for (var k = 0; k <= leg; k++) reached[R[k].to] = 1;
+    miniSvg.querySelectorAll(".stop").forEach(function (n) {
       var id = n.getAttribute("data-place");
-      n.classList.toggle("visited", !!visited[id]);
+      n.classList.toggle("visited", !!reached[id]);
+      n.classList.toggle("future", !reached[id]);
       n.classList.toggle("active", id === e.place);
     });
     miniPlace.textContent = placeName(e.place) || "The Black Loch";
+    glideTo(targetView(pt(e.place)));
   }
   setActive(0);
   if ("IntersectionObserver" in window) {

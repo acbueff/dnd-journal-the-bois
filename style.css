@@ -107,12 +107,66 @@
     background: linear-gradient(var(--gold), transparent); animation: cue 2.4s ease-in-out infinite; }
   @keyframes cue { 0%,100% { transform: scaleY(.4); transform-origin: top; } 50% { transform: scaleY(1); } }
 
-  /* ── Chart section ── */
-  .chart-section { padding: 6vh 20px 4vh; display: grid; place-items: center; }
-  .chart-frame {
-    width: min(1100px, 100%);
-    filter: drop-shadow(0 18px 40px rgba(0,0,0,.7));
+  /* ── Chart section: the real map of the Black Loch ── */
+  .chart-section { padding: 8vh 20px 4vh; max-width: 1340px; margin: 0 auto; }
+  .chart-head { text-align: center; margin-bottom: 3vh; }
+  .chart-head h2 { font-family: var(--display); font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: .08em; margin: .2em 0; color: #f3e6c8; }
+  .chart-head p { margin: 0 auto; max-width: 720px; font-style: italic; color: var(--muted-light); }
+  .chart-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 26px; align-items: start; }
+  .map-frame {
+    position: relative; padding: 12px;
+    background: linear-gradient(135deg, #5b3e12, #e2c06a 18%, #8a6420 34%, #f1d68c 50%, #7a5518 66%, #d9b65e 82%, #4e340d);
+    box-shadow: 0 25px 60px rgba(0,0,0,.75), inset 0 0 0 2px rgba(255, 235, 170, .35);
   }
+  .map-frame::before { content: ""; position: absolute; inset: 7px; border: 1px solid rgba(60, 35, 5, .7); pointer-events: none; }
+  .map-svg { display: block; width: 100%; height: auto; background: #3e3d5c; }
+  .map-open {
+    position: absolute; right: 22px; bottom: 22px; font: inherit; font-family: var(--sc); font-size: .9rem; letter-spacing: .06em;
+    color: #f3e6c8; background: rgba(12, 10, 6, .78); border: 1px solid rgba(201,162,74,.6); padding: 5px 12px; cursor: pointer; border-radius: 2px;
+  }
+  .map-open:hover { color: var(--gold-bright); }
+  .chart-key .parchment { padding: 20px 18px 18px; }
+  .chart-key h3 { font-family: var(--display); margin: 0 0 .5em; font-size: 1.2rem; border-bottom: 1px solid rgba(80, 50, 15, .35); padding-bottom: .3em; }
+  .legend { list-style: none; margin: 0; padding: 0; max-height: 640px; overflow-y: auto; }
+  .legend button {
+    all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 26px 1fr; column-gap: 8px; width: 100%;
+    padding: 5px 4px; border-radius: 2px; color: var(--ink); line-height: 1.25;
+  }
+  .legend button:hover, .legend button:focus-visible { background: rgba(141, 28, 22, .1); outline: none; }
+  .legend .n {
+    grid-row: span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-top: 1px;
+    background: #8d1c16; color: #f7ead0; font-family: var(--display); font-size: .72rem; font-weight: 700;
+  }
+  .legend .nm { font-family: var(--sc); font-size: .95rem; }
+  .legend .ev { font-style: italic; font-size: .85rem; color: var(--ink-soft); }
+  .chart-credit { text-align: center; color: var(--muted-light); font-size: .85rem; font-style: italic; margin: 14px 0 0; }
+
+  /* map overlays (shared by every view of the chart) */
+  .map-svg .map-label { font-family: var(--display); font-weight: 700; letter-spacing: .05em; text-anchor: middle; pointer-events: none;
+    paint-order: stroke; stroke-linejoin: round; }
+  .map-svg .map-label.fix { fill: #10201f; stroke: rgba(150, 205, 195, .75); stroke-width: 3px; text-transform: uppercase; }
+  .map-svg .map-label.note { fill: #1c1430; stroke: rgba(200, 190, 230, .55); stroke-width: 2.5px; font-style: italic; font-family: var(--serif); font-weight: 400; }
+  .map-svg .map-label.realm { fill: #0d2a6a; stroke: rgba(170, 200, 240, .5); stroke-width: 2.5px; font-style: italic; font-family: var(--serif); font-weight: 400; letter-spacing: .12em; }
+  .map-svg .route-shadow { fill: none; stroke: rgba(20, 0, 0, .45); stroke-width: 6.5; stroke-linecap: round; stroke-linejoin: round; }
+  .map-svg .route { fill: none; stroke: #d0261a; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 5; }
+  .map-svg .stop { cursor: pointer; }
+  .map-svg .stop .dot { fill: #8d1c16; stroke: #f7ead0; stroke-width: 2.2; }
+  .map-svg .stop .num { fill: #f7ead0; font-family: var(--display); font-weight: 700; font-size: 11px; text-anchor: middle; pointer-events: none; }
+  .map-svg .stop .ring { fill: none; stroke: #ff6a4a; stroke-width: 2.5; opacity: 0; }
+  .map-svg .stop:hover .dot, .map-svg .stop:focus-visible .dot { fill: #c62f1f; stroke-width: 3; }
+  .map-svg .stop:focus { outline: none; }
+  .map-svg .stop.future { opacity: .0; pointer-events: none; }
+  .map-svg .stop.active .dot { fill: #e0402c; }
+  .map-svg .stop.active .ring { opacity: 1; animation: ring 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes ring { from { transform: scale(1); opacity: .9; } to { transform: scale(2.8); opacity: 0; } }
+
+  /* full-screen chart */
+  .full-map { position: fixed; inset: 0; z-index: 60; background: rgba(3, 4, 6, .94); display: grid; place-items: center; padding: 3vh 2vw; }
+  .full-map[hidden] { display: none !important; }
+  .full-map-scroll { max-width: 100%; max-height: 92vh; overflow: auto; -webkit-overflow-scrolling: touch; box-shadow: 0 0 0 8px #8a6420, 0 30px 80px rgba(0,0,0,.8); }
+  .full-map .map-svg { width: min(96vw, calc(92vh * 1400 / 1098)); }
+  .full-map .close { position: absolute; top: calc(10px + env(safe-area-inset-top, 0px)); right: 16px; z-index: 2; font: 2.2rem/1 var(--display); color: var(--gold); background: rgba(0,0,0,.5); border: 0; cursor: pointer; width: 44px; height: 44px; border-radius: 50%; }
+
   .chart-sheet {
     position: relative; padding: clamp(14px, 3vw, 34px);
     background:
@@ -123,25 +177,26 @@
     color: var(--ink);
     box-shadow: inset 0 0 70px rgba(90, 55, 15, .65);
   }
-  .chart-sheet h2 {
-    font-family: var(--display); text-align: center; margin: 0 0 4px;
-    font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: .06em;
+
+  /* ── Dossier: the web around Suvresk ── */
+  .dossier { padding: 8vh 20px 4vh; max-width: 1240px; margin: 0 auto; }
+  .dossier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 40px 28px; }
+  .dossier-card { position: relative; transition: transform .4s ease; }
+  .dossier-card .pin {
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%); z-index: 2; width: 20px; height: 20px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #e0604c, #8d1c16 60%, #3e0806); box-shadow: 0 3px 6px rgba(0,0,0,.6);
   }
-  .chart-sheet .chart-note { text-align: center; font-style: italic; color: var(--ink-soft); margin: 0 0 10px; font-size: .95rem; }
-  .chart-svg { width: 100%; height: auto; display: block; }
-  .chart-svg .loch { fill: rgba(30, 55, 60, .22); stroke: rgba(60, 40, 15, .65); stroke-width: 2.5; }
-  .chart-svg .loch-label { font-family: var(--display); font-size: 34px; fill: rgba(60, 40, 15, .35); letter-spacing: 10px; }
-  .chart-svg .route { fill: none; stroke: #7a1d12; stroke-width: 3.2; stroke-dasharray: 2 9; stroke-linecap: round; }
-  .chart-svg .route-ghost { fill: none; stroke: rgba(90, 60, 25, .25); stroke-width: 2; stroke-dasharray: 2 9; stroke-linecap: round; }
-  .chart-svg .node circle { fill: #e9d7a8; stroke: #3c260c; stroke-width: 2.5; }
-  .chart-svg .node.visited circle { fill: #7a1d12; }
-  .chart-svg .node.active circle { fill: #c62f1f; stroke: #2a1a0b; }
-  .chart-svg .node.active .ring { fill: none; stroke: #c62f1f; stroke-width: 2; animation: ring 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
-  @keyframes ring { from { transform: scale(1); opacity: .9; } to { transform: scale(3.2); opacity: 0; } }
-  .chart-svg .node text { font-family: var(--sc); font-size: 19px; fill: #2a1a0b; paint-order: stroke; stroke: rgba(235, 220, 180, .85); stroke-width: 4px; }
-  .chart-svg .node { cursor: pointer; }
-  .chart-svg .node:hover circle, .chart-svg .node:focus-visible circle { stroke: #9a1a10; stroke-width: 4; }
-  .chart-svg .compass text { font-family: var(--display); font-size: 16px; fill: rgba(60,40,15,.7); }
+  .dossier-card .parchment { padding-top: 30px; }
+  .dossier-card h3 { font-family: var(--display); font-size: 1.3rem; margin: 0; }
+  .dossier-card .role { font-style: italic; color: var(--ink-soft); margin: .1em 0 .6em; font-size: .95rem; }
+  .dossier-card p { margin: 0 0 .6em; font-size: 1rem; line-height: 1.5; }
+  .dossier-card .ties { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; margin: .7em 0 .5em; padding-top: .6em; border-top: 1px dashed rgba(141, 28, 22, .45); }
+  .dossier-card .ties .lbl { font-family: var(--sc); font-size: .82rem; color: #8d1c16; margin-right: 2px; }
+  .dossier-card .ties a { font-family: var(--sc); font-size: .82rem; color: #3d0e08; text-decoration: none; border: 1px solid rgba(141, 28, 22, .45); padding: 0 8px; border-radius: 2px; background: rgba(255, 245, 220, .3); }
+  .dossier-card .ties a:hover { background: rgba(141, 28, 22, .15); }
+  .dossier-card .source { font-size: .85rem; color: var(--ink-soft); font-style: italic; margin: 0; }
+  .dossier-card.flash { animation: flash 1.4s ease; }
+  @keyframes flash { 0%, 100% { filter: none; } 30% { filter: drop-shadow(0 0 18px rgba(240, 200, 110, .9)); } }
 
   /* ── Timeline ── */
   .timeline { position: relative; padding: 2vh 20px 10vh; max-width: 1240px; margin: 0 auto; }
@@ -298,9 +353,9 @@
     font: inherit; font-family: var(--sc); font-size: .8rem; background: transparent; color: var(--wax);
     border: 1px solid rgba(141, 28, 22, .55); padding: 1px 8px; cursor: pointer; border-radius: 2px;
   }
-  .mini-chart.collapsed .chart-svg { display: none; }
-  .mini-chart .chart-svg .node text { display: none; }
-  .mini-chart .chart-svg .loch-label { display: none; }
+  .mini-chart.collapsed .map-svg { display: none; }
+  .mini-chart .map-svg { aspect-ratio: 380 / 270; height: auto; border: 1px solid rgba(60, 35, 5, .6); }
+  .mini-chart .map-svg .stop .num { font-size: 10px; }
 
   /* ── Lightbox ── */
   .lightbox {
@@ -324,8 +379,17 @@
     .frame { padding: 8px; }
     .parchment { padding: 22px 20px 24px; }
     .mini-chart { width: 220px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+    .chart-layout { grid-template-columns: 1fr; }
+    .legend { max-height: none; columns: 2; column-gap: 18px; }
+    .legend li { break-inside: avoid; }
+    .map-frame { padding: 7px; }
+    .map-open { right: 12px; bottom: 12px; font-size: .8rem; }
   }
   @media (max-width: 520px) {
+    .legend { columns: 1; }
+    .full-map { padding: 0; }
+    .full-map-scroll { max-height: 100vh; max-height: 100dvh; box-shadow: none; }
+    .full-map .map-svg { width: 1300px; }
     .mini-chart { width: auto; left: auto; }
     .mini-chart:not(.collapsed) { width: calc(100vw - 20px); }
   }
@@ -333,7 +397,8 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
-    .mote, .scroll-cue span, .chart-svg .node.active .ring { animation: none; display: none; }
+    .mote, .scroll-cue span { animation: none; display: none; }
+    .map-svg .stop.active .ring { animation: none; }
   }
 
 /* ── Site navigation (shared) ── */

@@ -25,25 +25,64 @@ window.JOURNAL = {
   book: "Book II — From Wave Echo Cave to Zarzula's Rest",
   year: "1491 DR",
 
-  /* Rough chart positions (viewBox 1000 x 700). The true map of the Black Loch will replace these. */
-  places: {
-    "wave-echo":      { name: "Wave Echo Cave",            x: 110, y: 70 },
-    "river":          { name: "The Underdark River",       x: 175, y: 175 },
-    "sandbank":       { name: "The Duergar Sand Bank",     x: 225, y: 245 },
-    "grinning-widow": { name: "The Grinning Widow",        x: 300, y: 300 },
-    "umber-beach":    { name: "Black-Sand Beach",          x: 380, y: 250 },
-    "charwall":       { name: "Charwall",                  x: 500, y: 215 },
-    "kaliphex-isle":  { name: "Kaliphex's Isle",           x: 590, y: 150 },
-    "ruby-beach":     { name: "The Ruby Beach",            x: 690, y: 215 },
-    "zarzula-waters": { name: "Waters of Zarzula's Rest",  x: 790, y: 330 },
-    "delaro":         { name: "Delaro's Manse",            x: 660, y: 430 },
-    "shuushar-isle":  { name: "Shuushar's Islet",          x: 560, y: 500 },
-    "scarhide":       { name: "Scarhide Yard",             x: 450, y: 560 },
-    "cultain-waters": { name: "Where the Cultain Ship Fell", x: 340, y: 525 },
-    "troll-waters":   { name: "Where Savras Appeared",     x: 255, y: 590 },
-    "glogdolp":       { name: "Glogdolp",                  x: 140, y: 630 },
-    "zarzula":        { name: "Zarzula's Rest",            x: 885, y: 400 }
+  /* ── The chart ──────────────────────────────────────────────────────────
+     Coordinates are in the map's own space: 1400 × 1098 (the image is 2800 × 2196).
+     `route` is the red line, leg by leg, in the order the bois travelled. Each leg ends
+     at a stop (`to`), and `via` are the bends in between, traced from the DM's working map.
+     The chart reveals the route up to the leg ending at the place of the entry being read. */
+  map: {
+    image: "assets/map/black-loch.jpg",
+    width: 1400, height: 1098,
+    credit: "Base map: Milby's Maps (milbysmaps.com). Route and notes by the bois.",
+    /* Labels drawn over the base map where the bois know better than the old chart */
+    labels: [
+      { text: "Zarzula's Rest", x: 722, y: 397, size: 14, cls: "fix" },
+      { text: "House Mizzrym", x: 352, y: 158, size: 11, cls: "note" },
+      { text: "Bluescale waters", x: 300, y: 622, size: 13, cls: "realm" },
+      { text: "the Mist", x: 560, y: 243, size: 10, cls: "note" }
+    ]
   },
+
+  places: {
+    "wave-echo":      { name: "Wave Echo Cave",              x: 496, y: 1092 },
+    "river":          { name: "Run Down on the River",       x: 532, y: 1040 },
+    "sandbank":       { name: "The Sand Bank (the Lonely)",  x: 571, y: 978 },
+    "grinning-widow": { name: "The Grinning Widow",          x: 598, y: 838 },
+    "first-rest":     { name: "First Night's Rest",          x: 738, y: 574 },
+    "isle-ash":       { name: "Isle of Ash (umber hulks)",   x: 963, y: 230 },
+    "charwall":       { name: "Charwall",                    x: 925, y: 186 },
+    "ruby-beach":     { name: "The Ruby Beach",              x: 917, y: 262 },
+    "sloop-trap":     { name: "The Booby-Trapped Sloop",     x: 928, y: 208 },
+    "kaliphex-isle":  { name: "Back of Kaliphex's Isle",     x: 939, y: 299 },
+    "zarzula-waters": { name: "Where the Sloop Sank",        x: 713, y: 356 },
+    "delaro":         { name: "Delaro's Manse",              x: 586, y: 288 },
+    "shuushar-isle":  { name: "Shuushar's Islet",            x: 680, y: 282 },
+    "scarhide":       { name: "Scarhide Yard",               x: 608, y: 92 },
+    "cultain-waters": { name: "The Cultain Ship",            x: 452, y: 452 },
+    "troll-waters":   { name: "Where Savras Appeared",       x: 487, y: 505 },
+    "glogdolp":       { name: "Glogdolp",                    x: 427, y: 630 },
+    "zarzula":        { name: "Zarzula's Rest",              x: 793, y: 393 }
+  },
+
+  route: [
+    { to: "river",          via: [[503, 1080], [520, 1058]] },
+    { to: "sandbank",       via: [[557, 1013]] },
+    { to: "grinning-widow", via: [[572, 950], [573, 910], [610, 862]] },
+    { to: "first-rest",     via: [[622, 805], [643, 760], [645, 715], [634, 672], [652, 638], [690, 606]] },
+    { to: "isle-ash",       via: [[800, 520], [880, 450], [950, 392], [976, 330], [978, 278]] },
+    { to: "charwall",       via: [[948, 244], [930, 225]] },
+    { to: "ruby-beach",     via: [[914, 214], [912, 242]] },
+    { to: "sloop-trap",     via: [[926, 240]] },
+    { to: "kaliphex-isle",  via: [[938, 240], [946, 272]] },
+    { to: "zarzula-waters", via: [[962, 318], [948, 360], [902, 398], [845, 418], [800, 414], [762, 390]] },
+    { to: "delaro",         via: [[660, 330], [610, 300]] },
+    { to: "shuushar-isle",  via: [[630, 278]] },
+    { to: "scarhide",       via: [[668, 215], [640, 150], [614, 104]] },
+    { to: "cultain-waters", via: [[596, 160], [570, 230], [560, 290], [540, 350], [492, 410]] },
+    { to: "troll-waters",   via: [[470, 482]] },
+    { to: "glogdolp",       via: [[478, 560], [445, 610]] },
+    { to: "zarzula",        via: [[500, 592], [600, 522], [700, 452], [760, 414]] }
+  ],
 
   acts: [
     /* ───────────────────────────── I ───────────────────────────── */
@@ -109,10 +148,10 @@ window.JOURNAL = {
         },
         {
           type: "note",
-          title: "Umber Hulks on the Black Sand",
-          date: "~Summertide 30",
-          place: "umber-beach",
-          text: "Looking for rest on a black-sand beach of the Loch, the bois were woken by the stone splitting open. <strong>Umber hulks</strong> burst out of the rock, their eyes scrambling every mind that met them. The bois survived, but nobody slept well."
+          title: "First Night on the Loch",
+          date: "~Summertide 29",
+          place: "first-rest",
+          text: "With the <em>Widow</em> burning behind them, the bois took the <strong>arcane sloop</strong> north through the narrow channels and out onto the open <strong>Black Loch</strong>. They hauled up on a stony beach on the southern shore for their <strong>first full night's rest in the Underdark</strong>: no sky, no dawn, only black water in every direction."
         }
       ]
     },
@@ -125,10 +164,17 @@ window.JOURNAL = {
       entries: [
         {
           type: "note",
+          title: "Umber Hulks on the Isle of Ash",
+          date: "~Summertide 30",
+          place: "isle-ash",
+          text: "Crossing the Loch to the north-east, the bois made camp on the <strong>Isle of Ash</strong>, a stone's throw from Charwall. In the middle of their long rest, the rock split open and <strong>umber hulks</strong> burst out, their eyes scrambling every mind that met them. The bois survived, but nobody slept well."
+        },
+        {
+          type: "note",
           title: "The Village in the Burnt Fortress",
           date: "~Highsun 1",
           place: "charwall",
-          text: "<strong>Charwall</strong> is the roofless, fire-blackened ruin of an ancient dwarven fortress on a small island. Dragonborn and kobolds live there, drawn by a pull they can't explain to worship the red dragon <strong>Kaliphex</strong>. The bois came for <strong>healing</strong> from the cleric <strong>Karragos</strong>, and paid at the Shrine of the Everlasting Scale. Toc was refused entry and slipped in unseen.<br><br>Drow of <strong>Bregan D'aerthe</strong> were already there, led by <strong>Vel'ryn Do'Urden</strong>. They had paid Charwall's clerics to free a captured duergar from its mind-binding crystal in a three-day ritual."
+          text: "Before going in, the bois <strong>anchored the arcane sloop out on the water</strong> and left it behind: a crystal-driven boat of Zarzula's Rest would only bring trouble.<br><br><strong>Charwall</strong> is the roofless, fire-blackened ruin of an ancient dwarven fortress on a small island. Dragonborn and kobolds live there, drawn by a pull they can't explain to worship the red dragon <strong>Kaliphex</strong>. The bois came for <strong>healing</strong> from the cleric <strong>Karragos</strong>, and paid at the Shrine of the Everlasting Scale. Toc was refused entry and slipped in unseen.<br><br>Drow of <strong>Bregan D'aerthe</strong> were already there, led by <strong>Vel'ryn Do'Urden</strong>. They had paid Charwall's clerics to free a captured duergar from its mind-binding crystal in a three-day ritual."
         },
         {
           type: "note",
@@ -148,17 +194,24 @@ window.JOURNAL = {
         },
         {
           type: "note",
-          title: "Rest Beneath the Dragon's Isle",
+          title: "The Blood-Eye Ruby",
           date: "~Highsun 3",
-          place: "kaliphex-isle",
-          text: "They fled across the strait and made camp in the shadow of the isle where the great red dragon <strong>Kaliphex</strong> is said to sleep. No dragon came, but every ember of the campfire felt like it was being watched."
+          place: "ruby-beach",
+          text: "On the beach across the strait from Charwall, the bois <strong>began to consume the Blood-Eye Ruby</strong> they had stolen. It mends them: their <strong>healing runs deeper</strong> than it should. But it ties them to its old owners, too. The <strong>Kaliphex cultists can scry on them far more easily</strong> now."
         },
         {
           type: "note",
-          title: "The Blood-Eye Ruby",
-          date: "~Highsun 3–4",
-          place: "ruby-beach",
-          text: "On a lonely beach far from Charwall, the bois <strong>began to consume the Blood-Eye Ruby</strong>. What it is doing to them, nobody can yet say. Charwall's dragonborn will be looking for it."
+          title: "The Booby-Trapped Sloop",
+          date: "~Highsun 3",
+          place: "sloop-trap",
+          text: "They went back for the <strong>arcane sloop</strong> where they had left it in the waters below Charwall. The cultists had found it first. <strong>Glyphs</strong> were laid into the ship, and when the bois took it, a <strong>fireball</strong> tore across the deck, burning the bois and scorching the hull. They sailed it away anyway."
+        },
+        {
+          type: "note",
+          title: "Rest Behind the Dragon's Isle",
+          date: "~Highsun 3",
+          place: "kaliphex-isle",
+          text: "They made camp on the <strong>far side of the isle where the red dragon Kaliphex sleeps</strong>, as far from the mouth of the lair as the island allows. No dragon came, but every ember of the campfire felt like it was being watched."
         }
       ]
     },
@@ -174,7 +227,7 @@ window.JOURNAL = {
           title: "Ambush off Zarzula's Rest",
           date: "~Highsun 4",
           place: "zarzula-waters",
-          text: "In the waters near <strong>Zarzula's Rest</strong>, duergar boats struck again, and the bois <strong>lost the arcane sloop</strong>. In the fight, <strong>Stor</strong> pried a green crystal out of a duergar jetboat's engine, crushed it, and <strong>swallowed it</strong>. Its effects would show themselves later."
+          text: "Heading west toward the mists, the bois crossed the waters off <strong>Zarzula's Rest</strong> and ran into duergar boats again. They fought, and the battered <strong>arcane sloop finally sank</strong>. In the fight, <strong>Stor</strong> pried a green crystal out of a duergar jetboat's engine, crushed it, and <strong>swallowed it</strong>. Its effects would show themselves later."
         },
         {
           type: "note",
@@ -327,6 +380,13 @@ window.JOURNAL = {
       subtitle: "The fortress of the Chosen",
       entries: [
         {
+          type: "note",
+          title: "Across the Loch on Vel's Ship",
+          date: "Highsun 10",
+          place: "zarzula",
+          text: "Free of Glogdolp, the bois and <strong>Vel</strong> sailed his ship north-east across the open Loch to <strong>Zarzula's Rest</strong>, a fortress of crystal-thralls on the tip of its own peninsula. Somewhere inside, <strong>Ruxithid the Chosen</strong> holds the Rod of Skyfire."
+        },
+        {
           type: "scene",
           title: "Assault on the Top Floor",
           date: "After Highsun 10",
@@ -361,6 +421,88 @@ window.JOURNAL = {
       ]
     }
   ],
+
+  /* ───────────────────────────── The Web Around Suvresk ─────────────────────────────
+     What the bois have pieced together about the mind flayer and the powers tied to him.
+     `source` says how they learned it; `ties` are the other cards this one connects to (by id). */
+  dossier: {
+    title: "The Web Around Suvresk",
+    subtitle: "Letters, confessions and things seen with our own eyes, pinned together.",
+    cards: [
+      {
+        id: "suvresk",
+        name: "Suvresk",
+        role: "Mind flayer · \"the Infinite Mind, Herald of the Far Realm\"",
+        source: "The Grinning Widow letters · Zadana's orders · Vel",
+        text: "The master behind <strong>Zarzula's Rest</strong>. Captain Kree carried him from Vlyn'darastyl to Zarzula's Rest, then to <strong>Wave Echo Cave</strong> aboard the <em>Iron Wave</em>, where he took the <strong>Black Shard</strong>. He meant to bring it back to Zarzula's Rest or to <strong>Ch'chitl</strong>. He promises his followers they will <em>ascend</em> as <strong>\"Realm Touched\"</strong>. House Cultain calls him <em>\"the mind flayer tied to House Baenre\"</em>.",
+        ties: ["zarzula", "bridge", "knife", "baenre", "bregan"]
+      },
+      {
+        id: "zarzula",
+        name: "Ruxithid & Zarzula's Rest",
+        role: "Suvresk's first thrall and his fortress",
+        source: "The Grinning Widow letters · the duergar · our own eyes",
+        text: "<strong>Ruxithid the Chosen</strong> rules Zarzula's Rest for Suvresk. Its people, duergar and captured slaves alike, carry <strong>green crystals in their skulls</strong> and obey without question. <strong>No outsider enters without Ruxithid's leave</strong>. His captains: <strong>Thrunbar</strong> of the <em>Grinning Widow</em> and <strong>Kree</strong> of the <em>Iron Wave</em>. The slaver <strong>Thrunbeard</strong> bought Seb's rod from Vel, and Ruxithid holds it now.",
+        ties: ["suvresk", "crystals"]
+      },
+      {
+        id: "crystals",
+        name: "The Green Crystals",
+        role: "Leash, engine and something worse",
+        source: "Vel · Glogdolp · Stor",
+        text: "The duergar of Zarzula's Rest are their source. <strong>Implanted</strong>, a crystal makes a thrall. <strong>Fitted</strong> into a hull, it drives the arcane sloops and jetboats that <strong>Scarhide Yard</strong> builds for Zarzula's Rest. In Glogdolp, the crystals <strong>turned Ohlavoosha's faithful into monsters</strong>, and woke the one Stor swallowed. Vel is now convinced that what the kuo-toa worship as <strong>Ilvooshooo</strong> is <strong>real</strong>, and that the crystals are its instrument.",
+        ties: ["zarzula", "suvresk"]
+      },
+      {
+        id: "bridge",
+        name: "The Bridge Builders",
+        role: "Toc's old division of Calimshan's 2nd Army",
+        source: "Ruxithid's letter to Thrunbar",
+        text: "Suvresk spoke of <em>\"visiting mercenaries who will soon become Realm Touched… a military division of Calimshan known as the Bridge Builders.\"</em> The men who carried Ruxithid's letter were already Realm Touched. Toc's old comrades, or what is left of them, have <strong>thrown in with a mind flayer</strong>.",
+        ties: ["suvresk", "knife"]
+      },
+      {
+        id: "knife",
+        name: "The Amethyst Knife",
+        role: "Psionic soldiers, once \"the Ninth Squad\"",
+        source: "Vel",
+        text: "A company once called the <strong>Ninth Squad</strong>, remade at Zarzula's Rest. <strong>Suvresk personally granted them entry</strong> and filled them with psionic power, and they took a new name. They answer to a <strong>wizard of Calimshan</strong> tied to the Bridge Builders, who has promised them <strong>a kingdom of their own</strong>. Vel was sent to find out how they fit into Suvresk's web.",
+        ties: ["suvresk", "bridge", "bregan"]
+      },
+      {
+        id: "bregan",
+        name: "Bregan D'aerthe",
+        role: "Houseless drow mercenaries · Vel's company",
+        source: "Vel",
+        text: "Their Black Loch operation runs from a hidden cavern beside <strong>Vlyn'darastyl</strong>, commanded by <strong>Bruhd Do'Urden</strong>, Vel's elder brother. They <strong>escorted Suvresk</strong> on his travels. Then House Baenre's spymasters grew uneasy and sent them to learn <strong>what Suvresk is really doing</strong>. Vel's crew was to capture a crystal-thralled duergar, have Charwall's clerics free its mind, and question it. The bois' arrival at Charwall wrecked that.",
+        ties: ["baenre", "suvresk"]
+      },
+      {
+        id: "baenre",
+        name: "House Baenre",
+        role: "First House of Menzoberranzan",
+        source: "Vel · Zadana's orders",
+        text: "Suvresk presents himself as <strong>loyal to House Baenre</strong>, and Baenre doesn't fully believe him, which is why Bregan D'aerthe was sent to look. Its reach on the Loch runs through Bregan D'aerthe and its ally <strong>House Mizzrym</strong>, whose watchers we met at <strong>Scarhide Yard</strong>, and whose hold is at Spyr-Anaisz.",
+        ties: ["bregan", "cultain", "suvresk"]
+      },
+      {
+        id: "cultain",
+        name: "House Cultain",
+        role: "Rulers of Vlyn'darastyl · Lolth-sworn",
+        source: "Zadana's orders to Captain Urldaar · Vel",
+        text: "Matron Mother <strong>Azani Cultain</strong> rules Vlyn'darastyl. Her daughter <strong>Zadana</strong>, High Priestess of Lolth, sends trade ships across the Loch. Cultain buys its surface goods through the <strong>Zhentarim</strong>, warns its captains about <strong>House Mizzrym</strong>, and pays for any word of <strong>Suvresk</strong>. It resents Baenre's shadow over its city. It is also missing a ship, which the bois took.",
+        ties: ["zhent", "baenre"]
+      },
+      {
+        id: "zhent",
+        name: "The Zhentarim",
+        role: "The Black Network, below the earth",
+        source: "Vel · Zadana's orders",
+        text: "House Cultain's trade partners, with an outpost in Vlyn'darastyl's slums that supplies the drow with surface goods. Somehow they are tangled in Suvresk's web too. Vel's original question still stands: <strong>why are the Zhentarim keeping Suvresk's business secret from House Cultain</strong>, their own trade partner?",
+        ties: ["cultain", "suvresk"]
+      }
+    ]
+  },
 
   /* ───────────────────────────── The Ledger ───────────────────────────── */
   ledger: [
@@ -412,7 +554,7 @@ window.JOURNAL = {
       title: "What We Carry",
       icon: "⚱",
       items: [
-        "<strong>The Blood-Eye Ruby</strong>, partly consumed.",
+        "<strong>The Blood-Eye Ruby</strong>, partly consumed: deeper healing, but easier scrying for the Kaliphex cultists.",
         "<strong>Mr. Bree's soul</strong>, inside a ring of mind shielding.",
         "<strong>Delaro's planar rune book</strong> and <strong>planar rods</strong>.",
         "<s class=\"struck\"><strong>The Cultain ship's cargo.</strong></s> <span class=\"correction\">Left the cargo at Glogdolp</span>",
@@ -425,7 +567,8 @@ window.JOURNAL = {
       items: [
         "Where is the Black Shard now: Zarzula's Rest, or Ch'chitl?",
         "<em>\"Even gods may wear masks.\"</em> Whose mask?",
-        "What is the Blood-Eye Ruby doing to us?",
+        "How much can Charwall's scryers see of us, now that the Ruby is in us?",
+        "Why do the Zhentarim keep Suvresk's business secret from House Cultain?",
         "Will the crystal in Stor ever let him go?",
         "Immeral's gods: free Shaundakul from the God Tree, or keep feeding Priapus?",
         "What crawled out of the Shadowfell beneath the Loch?",
