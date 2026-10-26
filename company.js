@@ -25,9 +25,11 @@ window.COMPANY = {
       id: "stor",
       name: "Stor Lackman",
       epithet: "Face, scoundrel, and something more",
-      tags: ["Human of Luskan", "Rogue · Arcane Trickster"],
-      bio: "A charming, dangerous rogue from <strong>Luskan</strong>, all crooked grins and quick blades. He picks locks with a spectral hand and talks the bois into, and out of, trouble. Off Zarzula's Rest he <strong>swallowed a crushed green crystal</strong>, and in Glogdolp it woke: half his face is no longer entirely his own.",
+      tags: ["Human of Luskan", "Rogue · Arcane Trickster", "Son of a Bhaalist"],
+      bio: "A charming, dangerous rogue from <strong>Luskan</strong>, all crooked grins and quick blades. He picks locks with a spectral hand and talks the bois into, and out of, trouble. His father, <strong>Urth Lackman</strong>, was a cleric of <strong>Bhaal</strong> whose cult on the River Mirar was destroyed, and the family's Bhaal-forged rapier, <strong>Whisper of Endings</strong>, was taken as spoils. Off Zarzula's Rest he <strong>swallowed a crushed green crystal</strong>, and in Glogdolp it woke: half his face is no longer entirely his own.",
       facts: [
+        "<strong>Bhaal</strong> came to him in a dream and named where <strong>Whisper of Endings</strong> lies: aboard <strong>Ship Kurth</strong>, with <strong>Captain Kurth</strong> of Luskan.",
+        "Vel has since told the bois that <strong>Bregan D'aerthe secretly runs Luskan</strong> through its five High Captains. So whoever holds his family's blade answers to Vel's company.",
         "Carries lasting wounds from the duergar ambush on the river.",
         "The crystal in him pulls toward the Far Realm, and he is still fighting it.",
         "Savras showed him ruling Baldur's Gate's underworld, and the city burning."
@@ -99,6 +101,8 @@ window.COMPANY = {
       bio: "A polished, persuasive drow mercenary of <strong>Bregan D'aerthe</strong>. He came to Charwall to have a crystal-bound duergar freed for questioning, and left with <strong>Seb's Rod of Skyfire</strong>. The bois chased him to Glogdolp, only to learn he had already <strong>sold the rod</strong> to a Zarzula slaver named Thrunbeard. Trapped together in a city that wanted them all on an altar, they made a truce.",
       facts: [
         "Fought beside the bois in the Glogdolp breakout.",
+        "On the way to Zarzula's Rest he let slip that <strong>Bregan D'aerthe secretly runs Luskan</strong> through its five High Captains.",
+        "His brother <strong>Bruhd</strong>, and <strong>Jarlaxle</strong> himself, want him inside Zarzula's Rest to uncover Suvresk's plot.",
         "Carried Thrak up the cliff to Zarzula's Rest."
       ],
       status: "With the company, for now"

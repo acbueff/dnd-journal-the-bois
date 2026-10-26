@@ -387,6 +387,13 @@ window.JOURNAL = {
           text: "Free of Glogdolp, the bois and <strong>Vel</strong> sailed his ship north-east across the open Loch to <strong>Zarzula's Rest</strong>, a fortress of crystal-thralls on the tip of its own peninsula. Somewhere inside, <strong>Ruxithid the Chosen</strong> holds the Rod of Skyfire."
         },
         {
+          type: "note",
+          title: "What Vel Said About Luskan",
+          date: "Highsun 10",
+          place: "zarzula",
+          text: "On the crossing, Vel let something slip: <strong>Bregan D'aerthe secretly runs Luskan</strong>, the City of Sails, through its <strong>five High Captains</strong>.<br><br>For Stor, it landed hard. Long ago, <strong>Bhaal</strong> came to him in a dream and named where his family's rapier lies: <strong>Whisper of Endings</strong>, forged from Bhaal's own essence and taken when his father's cult fell. It is aboard <strong>Ship Kurth</strong>, with <strong>Captain Kurth</strong> of Luskan.<br><br>If Luskan's captains answer to Bregan D'aerthe, then so does the man holding Stor's birthright. That is <strong>Vel's own company</strong>."
+        },
+        {
           type: "scene",
           title: "Assault on the Top Floor",
           date: "After Highsun 10",
@@ -474,8 +481,16 @@ window.JOURNAL = {
         name: "Bregan D'aerthe",
         role: "Houseless drow mercenaries · Vel's company",
         source: "Vel",
-        text: "A drow mercenary company led by <strong>Jarlaxle Baenre</strong>. Its Black Loch operation runs from a hidden cavern beside <strong>Vlyn'darastyl</strong>, commanded by <strong>Bruhd Do'Urden</strong>, Vel's elder brother. They <strong>escorted Suvresk</strong> on his travels, and they grew <strong>suspicious of him</strong>. Vel's crew was sent to learn <strong>what Suvresk is really doing</strong>: capture a crystal-thralled duergar, have Charwall's clerics free its mind, and question it. The bois' arrival at Charwall wrecked that.<br><br>Now that Vel knows about the <strong>Black Shard</strong> and Suvresk's part in taking it, his suspicion has sharpened. <strong>Bruhd, and Jarlaxle himself</strong>, want him to <strong>go into Zarzula's Rest and uncover the plot</strong>.",
-        ties: ["baenre", "suvresk"]
+        text: "A drow mercenary company led by <strong>Jarlaxle Baenre</strong>. Vel says it also <strong>secretly runs Luskan</strong> through the city's five High Captains. Its Black Loch operation runs from a hidden cavern beside <strong>Vlyn'darastyl</strong>, commanded by <strong>Bruhd Do'Urden</strong>, Vel's elder brother. They <strong>escorted Suvresk</strong> on his travels, and they grew <strong>suspicious of him</strong>. Vel's crew was sent to learn <strong>what Suvresk is really doing</strong>: capture a crystal-thralled duergar, have Charwall's clerics free its mind, and question it. The bois' arrival at Charwall wrecked that.<br><br>Now that Vel knows about the <strong>Black Shard</strong> and Suvresk's part in taking it, his suspicion has sharpened. <strong>Bruhd, and Jarlaxle himself</strong>, want him to <strong>go into Zarzula's Rest and uncover the plot</strong>.",
+        ties: ["baenre", "suvresk", "luskan"]
+      },
+      {
+        id: "luskan",
+        name: "Luskan & Ship Kurth",
+        role: "The City of Sails, and its hidden masters",
+        source: "Bhaal's dream (Stor) · Vel",
+        text: "Luskan is ruled by <strong>five High Captains</strong>, pirate lords whose factions are called <strong>Ships</strong>. Vel says <strong>Bregan D'aerthe secretly runs the city through them</strong>. One of the five is <strong>Captain Kurth</strong> of <strong>Ship Kurth</strong>, and Bhaal told Stor that Kurth holds his family's rapier, <strong>Whisper of Endings</strong>. Whatever Captain Kurth is, he answers to Bregan D'aerthe.",
+        ties: ["bregan"]
       },
       {
         id: "baenre",
@@ -513,7 +528,8 @@ window.JOURNAL = {
         "<strong>Seb's Rod of Skyfire</strong>: held by Ruxithid the Chosen at Zarzula's Rest. Forge warns that if it isn't recovered, Seb's pact breaks.",
         "<strong>The Black Shard</strong>: taken from Wave Echo by the mind flayer Suvresk. Savras: <em>three shards shall decide the fate of eternity.</em>",
         "<strong>Delaro Omnibras</strong>: Tim's master's murderer. Savras: ask him <em>who truly answered when he prayed</em>.",
-        "<strong>A cure, or an answer,</strong> for the crystal in Stor."
+        "<strong>A cure, or an answer,</strong> for the crystal in Stor.",
+        "<strong>Whisper of Endings</strong>: Stor's family rapier, forged from Bhaal's essence. Aboard Ship Kurth, with Captain Kurth of Luskan, and so in Bregan D'aerthe's hands."
       ]
     },
     {
@@ -572,7 +588,8 @@ window.JOURNAL = {
         "Will the crystal in Stor ever let him go?",
         "Immeral's gods: free Shaundakul from the God Tree, or keep feeding Priapus?",
         "What crawled out of the Shadowfell beneath the Loch?",
-        "Why do the Bridge Builders serve a mind flayer?"
+        "Why do the Bridge Builders serve a mind flayer?",
+        "Who is Captain Kurth, really? And what will Bregan D'aerthe do when Stor comes for the blade?"
       ]
     }
   ]
